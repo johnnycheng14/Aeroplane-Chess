@@ -8,19 +8,56 @@ import RETURN_PIECE from './player'
 
 const initialState = {
   piece1: {
-    deployed: false,
     position: greenHanger
   },
   piece2: {
-    deployed: false,
     position: greenHanger
   },
   piece3: {
-    deployed: false,
     position: greenHanger
   },
   piece4: {
-    deployed: false,
     position: greenHanger
   },
+  undeployed: ['piece1', 'piece2', 'piece3', 'piece4']
+}
+
+export default function(state = initialState, action) {
+  switch (action.type) {
+    case DEPLOY_PIECE + 'green':
+      let piece = state.undeployed[0]
+      let newState = {
+        ...state,
+        undeployed: undeployed.slice(1),
+      }
+      newState[piece] = { position: greenHanger.next }
+      return newState
+    case MOVE_PIECE + 'green':
+      let newState = {
+        ...state, 
+      }
+      let position = newState[action.type].next
+      newState[action.type] = { position }
+      return newState
+    case JUMP_PIECE + 'green':
+      let newState = {
+        ...state, 
+      }
+      let position = newState[action.type].jump
+      newState[action.type] = { position }
+    case FLY_PIECE + 'green':
+      let newState = {
+        ...state, 
+      }
+      let position = newState[action.type].flight
+      newState[action.type] = { position }
+    case RETURN_PIECE + 'green':
+      let newState = {
+        ...state, 
+      }
+      let position = greenHanger
+      newState[action.type] = { position }
+    default:
+      return state
+  }
 }
